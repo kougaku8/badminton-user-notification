@@ -125,35 +125,41 @@ console.log(
   messaging
 );
 
-button.addEventListener(
-  "click",
-  async () => {
+document
+  .getElementById("notificationButton")
+  .addEventListener(
+    "click",
+    async () => {
 
-    try {
+      const status =
+        document.getElementById("status");
 
-      status.textContent =
-        "Service Workerを登録しています……";
+      try {
 
-      await registerServiceWorker();
+        status.textContent =
+          "Service Workerを登録しています……";
 
-      status.textContent =
-        "Service Worker登録成功！";
+        await registerServiceWorker();
 
-    } catch (error) {
+        status.textContent =
+          "Service Worker登録成功！";
 
-      console.error(
-        "Service Workerエラー:",
-        error
-      );
+      } catch (error) {
 
-      status.textContent =
-        "❌ " +
-        error.message;
+        console.error(
+          "Service Workerエラー:",
+          error
+        );
+
+        status.textContent =
+          "❌ " +
+          error.message;
+
+      }
 
     }
+  );
 
-  }
-);
 
 </script>
 
