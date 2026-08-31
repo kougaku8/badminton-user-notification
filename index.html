@@ -132,12 +132,23 @@ const notificationButton =
 const statusElement =
   document.getElementById("status");
 
-
+const contactValueInput =
+  document.getElementById("contactValue");
+  
 notificationButton.addEventListener(
   "click",
   async function () {
 
     try {
+const contactValue =
+  contactValueInput.value.trim();
+
+if (!contactValue) {
+
+  throw new Error(
+    "ContactValueを入力してください"
+  );
+}
 
       statusElement.textContent =
         "Service Workerを登録しています……";
