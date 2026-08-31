@@ -115,6 +115,36 @@ console.log(
   messaging
 );
 
+button.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      status.textContent =
+        "Service Workerを登録しています……";
+
+      await registerServiceWorker();
+
+      status.textContent =
+        "Service Worker登録成功！";
+
+    } catch (error) {
+
+      console.error(
+        "Service Workerエラー:",
+        error
+      );
+
+      status.textContent =
+        "❌ " +
+        error.message;
+
+    }
+
+  }
+);
+
 </script>
 
 </body>
