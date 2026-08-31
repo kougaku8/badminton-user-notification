@@ -89,6 +89,27 @@ const messaging =
 const vapidKey =
   "BEzm7tEPH4F7nr5saymZsJqdnF_h_DlTZWgXsN6cDOjb4VVJIGseCnJLPwW37ko_uulqKjhPtjlg-9kYHjTzSJI";
 
+async function registerServiceWorker() {
+
+  const registration =
+    await navigator.serviceWorker.register(
+      "/badminton-user-notification/firebase-messaging-sw.js"
+    );
+
+  console.log(
+    "Service Worker登録:",
+    registration
+  );
+
+  await navigator.serviceWorker.ready;
+
+  console.log(
+    "Service Worker ready"
+  );
+
+  return registration;
+}
+
 console.log(
   "Firebase 初期化成功",
   messaging
