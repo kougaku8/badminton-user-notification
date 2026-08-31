@@ -204,18 +204,6 @@ console.log(
 statusElement.textContent =
   "GASへTokenを保存しています……";
 
-const response =
-  await fetch(
-    GAS_URL,
-    {
-      method: "POST",
-      body: JSON.stringify({
-        token: token,
-        contactValue: contactValue
-      })
-    }
-  );
-
 console.log(
   "GAS HTTP status:",
   response.status
