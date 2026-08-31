@@ -171,44 +171,6 @@ if (!contactValue) {
           }
         );
 
-
-      console.log(
-        "FCM TOKEN:",
-        token
-      );
-
-
-      if (!token) {
-
-        throw new Error(
-          "FCM Tokenを取得できませんでした"
-        );
-
-      }
-
-
-      statusElement.textContent =
-        "FCM Token取得成功！";
-
-
-    } catch (error) {
-
-      console.error(
-        "FCMエラー:",
-        error
-      );
-
-
-      statusElement.textContent =
-        "❌ " +
-        error.message;
-
-    }
-
-  }
-);
-
-
 console.log(
   "FCM TOKEN:",
   token
