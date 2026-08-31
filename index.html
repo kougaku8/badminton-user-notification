@@ -140,10 +140,39 @@ document
         status.textContent =
           "Service Workerを登録しています……";
 
-        await registerServiceWorker();
+const registration =
+  await registerServiceWorker();
 
-        status.textContent =
-          "Service Worker登録成功！";
+status.textContent =
+  "FCM Tokenを取得しています……";
+
+const token =
+  await getToken(
+    messaging,
+    {
+      vapidKey:
+        vapidKey,
+
+      serviceWorkerRegistration:
+        registration
+    }
+  );
+
+console.log(
+  "FCM TOKEN:",
+  token
+);
+
+if (!token) {
+
+  throw new Error(
+    "FCM Tokenを取得できませんでした"
+  );
+}
+
+status.textContent =
+  "FCM Token取得成功！";
+
 
       } catch (error) {
 
