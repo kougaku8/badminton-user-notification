@@ -126,37 +126,77 @@ console.log(
   messaging
 );
 
-document
-  .getElementById("notificationButton")
-  .addEventListener(
-    "click",
-    async () => {
+const notificationButton =
+  document.getElementById("notificationButton");
 
-      const status =
-        document.getElementById("status");
+const statusElement =
+  document.getElementById("status");
 
-      try {
 
-        status.textContent =
-          "Service Workerを登録しています……";
+notificationButton.addEventListener(
+  "click",
+  async function () {
 
-const registration =
-  await registerServiceWorker();
+    try {
 
-status.textContent =
-  "FCM Tokenを取得しています……";
+      statusElement.textContent =
+        "Service Workerを登録しています……";
 
-const token =
-  await getToken(
-    messaging,
-    {
-      vapidKey:
-        vapidKey,
 
-      serviceWorkerRegistration:
-        registration
+      const registration =
+        await registerServiceWorker();
+
+
+      statusElement.textContent =
+        "FCM Tokenを取得しています……";
+
+
+      const token =
+        await getToken(
+          messaging,
+          {
+            vapidKey: vapidKey,
+            serviceWorkerRegistration: registration
+          }
+        );
+
+
+      console.log(
+        "FCM TOKEN:",
+        token
+      );
+
+
+      if (!token) {
+
+        throw new Error(
+          "FCM Tokenを取得できませんでした"
+        );
+
+      }
+
+
+      statusElement.textContent =
+        "FCM Token取得成功！";
+
+
+    } catch (error) {
+
+      console.error(
+        "FCMエラー:",
+        error
+      );
+
+
+      statusElement.textContent =
+        "❌ " +
+        error.message;
+
     }
-  );
+
+  }
+);
+
 
 console.log(
   "FCM TOKEN:",
