@@ -90,9 +90,6 @@ const messaging =
 const vapidKey =
   "BEzm7tEPH4F7nr5saymZsJqdnF_h_DlTZWgXsN6cDOjb4VVJIGseCnJLPwW37ko_uulqKjhPtjlg-9kYHjTzSJI";
 
-const WEB_APP_URL =
-  "https://script.google.com/macros/s/AKfycbwccTrEsf3VNWHTzZShKlAybjwvpi3bhOSSfwgpOAjq65poANbpL-9805pms0dFzwNsEw/exec";
-
 async function registerServiceWorker() {
 
   const registration =
@@ -176,14 +173,6 @@ if (!token) {
   );
 }
 
-/*
- * 保存当前设备的 FCM Token
- */
-localStorage.setItem(
-  "fcmToken",
-  token
-);
-
 statusElement.textContent =
   "FCM Token取得成功！";
 
@@ -191,71 +180,6 @@ console.log(
   "ContactValue:",
   contactValue
 );
-
-statusElement.textContent =
-  "GASへTokenを保存しています……";
-
-const response =
-  await fetch(
-    WEB_APP_URL,
-    {
-      method: "POST",
-
-      body: JSON.stringify({
-        token: token,
-        contactValue: contactValue
-      })
-    }
-  );
-
-
-console.log(
-  "GAS HTTP status:",
-  response.status
-);
-
-
-const result =
-  await response.json();
-
-
-console.log(
-  "GAS response:",
-  result
-);
-
-
-if (!result.success) {
-
-  throw new Error(
-    result.error ||
-    "GASへのToken保存に失敗しました"
-  );
-
-}
-
-
-/*
- * 保存 GAS 返回的 DeviceID
- */
-
-if (result.deviceId) {
-
-  localStorage.setItem(
-    "deviceId",
-    String(result.deviceId)
-  );
-
-  console.log(
-    "DeviceID 已保存:",
-    result.deviceId
-  );
-
-}
-
-
-statusElement.textContent =
-  "✅ 通知設定が完了しました";
 
       } catch (error) {
 
@@ -273,6 +197,7 @@ statusElement.textContent =
 
     }
   );
+
 
 </script>
 
