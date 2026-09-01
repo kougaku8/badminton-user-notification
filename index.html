@@ -200,6 +200,11 @@ const response =
     WEB_APP_URL,
     {
       method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
       body: JSON.stringify({
         token: token,
         contactValue: contactValue
@@ -207,10 +212,55 @@ const response =
     }
   );
 
+
 console.log(
   "GAS HTTP status:",
   response.status
 );
+
+
+const result =
+  await response.json();
+
+
+console.log(
+  "GAS response:",
+  result
+);
+
+
+if (!result.success) {
+
+  throw new Error(
+    result.error ||
+    "GASへのToken保存に失敗しました"
+  );
+
+}
+
+
+/*
+ * 保存 GAS 返回的 DeviceID
+ */
+
+if (result.deviceId) {
+
+  localStorage.setItem(
+    "deviceId",
+    String(result.deviceId)
+  );
+
+  console.log(
+    "DeviceID 已保存:",
+    result.deviceId
+  );
+
+}
+
+
+statusElement.textContent =
+  "✅ 通知設定が完了しました";
+
       } catch (error) {
 
         console.error(
