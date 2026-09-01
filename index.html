@@ -176,6 +176,14 @@ if (!token) {
   );
 }
 
+/*
+ * 保存当前设备的 FCM Token
+ */
+localStorage.setItem(
+  "fcmToken",
+  token
+);
+
 statusElement.textContent =
   "FCM Token取得成功！";
 
